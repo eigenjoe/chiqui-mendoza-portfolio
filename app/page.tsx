@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default function Home() {
 	return (
-		<div className=" h-screen w-full">
+		<div className=" relative h-screen w-full">
 			<Image
 				src="/images/IMG_2098.jpg" // Ensure this path is correct
 				alt="Main Visual"
