@@ -11,12 +11,14 @@ interface NavListLinkProps extends LinkProps {
 	children: React.ReactNode;
 	className?: string;
 	submenu?: boolean;
+	onClick?: () => void; // Add onClick prop
 }
 
 const NavListLink: React.FC<NavListLinkProps> = ({
 	children,
 	className,
 	submenu = false,
+	onClick,
 	...props
 }) => {
 	const pathname = usePathname();
@@ -25,13 +27,14 @@ const NavListLink: React.FC<NavListLinkProps> = ({
 	return (
 		<Link {...props} passHref legacyBehavior>
 			<a
+				onClick={onClick} // Trigger onClick when link is clicked
 				className={cn(
-					"block px-4 py-2 rounded transition-colors",
+					className,
+					"block px-4 py-2 rounded transition-colors text-2xl",
 					isActive
 						? "text-gray-900 font-semibold"
 						: "text-gray-700 hover:text-gray-900",
-					submenu ? "text-sm" : "text-base",
-					className
+					submenu ? "text-sm" : "text-base"
 				)}
 			>
 				{children}

@@ -3,13 +3,19 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import NavList from "@/components/ui/NavList";
 import NavListItem from "@/components/ui/NavListItem";
 import NavListLink from "@/components/ui/NavListLink";
-import Link from "next/link";
-import NavListAnchor from "./ui/NavListAnchor";
+import NavListAnchor from "@/components/ui/NavListAnchor";
+import { cn } from "@/lib/utils";
 
-const Sidebar: React.FC = () => {
+interface SidebarProps {
+	isOpen: boolean;
+	onClose: () => void;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
 	const navigationItems = [
 		{
 			name: "Selected Works",
@@ -63,43 +69,59 @@ const Sidebar: React.FC = () => {
 	];
 
 	return (
-		<aside className="fixed inset-y-0 left-0 w-96 bg-zinc-50 text-gray-700">
+		<aside
+			className={cn(
+				"fixed inset-y-0 left-0 w-96 bg-zinc-50 text-gray-700 transform transition-transform duration-300 ease-in-out z-50",
+				{
+					"translate-x-0": isOpen,
+					"-translate-x-full": !isOpen,
+					"md:translate-x-0 md:static md:inset-0": true, // Always visible on md and above
+				}
+			)}
+		>
 			<div className="flex flex-col h-full">
-				<div className="flex items-center justify-center h-16">
-					<h1 className="text-2xl font-bold font-Syncopate text-black">
-						<Link href={"/"}>Chiqui Mendoza</Link>{" "}
+				<div className="ml-1 flex items-center justify-center h-16">
+					<h1 className="text-3xl font-bold font-Syncopate text-gray-700 ">
+						<Link href="/">Chiqui Mendoza</Link>
 					</h1>
 				</div>
-				<nav className="flex-1 px-4 py-6 text-2lx">
-					<NavList className="">
+				<nav className="flex-1 px-4 py-6">
+					<NavList className="space-y-2">
 						{navigationItems.map((item) => (
 							<NavListItem
 								key={item.name}
 								label={item.name}
 								hasSubmenu={!!item.children}
-								className="text-gray-700 "
+								className="text-gray-700 text-2xl"
 							>
 								{item.children ? (
 									item.children.map((subItem) =>
 										subItem.external ? (
 											<NavListAnchor
+												className="text-xl"
 												key={subItem.name}
 												href={subItem.href}
+												onClick={onClose} // Close sidebar on link click
 											>
 												{subItem.name}
 											</NavListAnchor>
 										) : (
 											<NavListLink
+												className="text-2xl"
 												key={subItem.name}
 												href={subItem.href}
 												submenu={true}
+												onClick={onClose} // Close sidebar on link click
 											>
 												{subItem.name}
 											</NavListLink>
 										)
 									)
 								) : (
-									<NavListLink href={item.href}>
+									<NavListLink
+										href={item.href}
+										onClick={onClose}
+									>
 										{item.name}
 									</NavListLink>
 								)}

@@ -10,6 +10,7 @@ module.exports = {
 	theme: {
 		extend: {
 			transitionProperty: {
+				transform: "transform",
 				"max-height": "max-height",
 				opacity: "opacity",
 			},
