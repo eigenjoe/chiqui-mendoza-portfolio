@@ -21,6 +21,10 @@ module.exports = {
 				"0": "0",
 				"100": "1",
 			},
+			fontFamily: {
+				Playfair: ["var(--font-playfair-display)"],
+				Syncopate: ["var(--font-syncopate)"],
+			},
 		},
 	},
 	plugins: [],

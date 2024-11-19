@@ -1,9 +1,20 @@
 // app/layout.jsx
 
 import React from "react";
-import Sidebar from "@/components/Sidebar"; // Ensure global styles are imported
-
+import Sidebar from "@/components/Sidebar";
+import localFont from "next/font/local";
 import "./globals.css";
+
+const playfair = localFont({
+	src: "/fonts/PlayfairDisplayVF.ttf",
+	variable: "--font-playfair-display",
+	weight: "100 200 300 400 500 600 700 800 900",
+});
+const syncopate = localFont({
+	src: "/fonts/Syncopate-Bold.ttf",
+	variable: "--font-syncopate",
+	weight: "400",
+});
 
 export const metadata = {
 	title: "Chiqui Mendoza",
@@ -17,9 +28,11 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="en">
-			<body className="flex h-screen overflow-hidden">
+			<body
+				className={`flex h-screen overflow-hidden ${playfair.className} ${syncopate.variable} antialiased`}
+			>
 				<Sidebar />
-				<main className="flex-1 ml-64 h-full overflow-auto">
+				<main className="flex-1 ml-96 h-full bg-zinc-50 overflow-auto">
 					{children}
 				</main>
 			</body>

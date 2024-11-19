@@ -7,6 +7,7 @@ import NavList from "@/components/ui/NavList";
 import NavListItem from "@/components/ui/NavListItem";
 import NavListLink from "@/components/ui/NavListLink";
 import Link from "next/link";
+import NavListAnchor from "./ui/NavListAnchor";
 
 const Sidebar: React.FC = () => {
 	const navigationItems = [
@@ -39,7 +40,13 @@ const Sidebar: React.FC = () => {
 		{
 			name: "Instagram",
 			href: "/instagram",
-			children: [{ name: "Handle", href: "/instagram/handle" }],
+			children: [
+				{
+					name: "@chiquimendozastudio",
+					href: "https://www.instagram.com/chiquimendozastudio",
+					external: true,
+				},
+			],
 		},
 		{
 			name: "Contact",
@@ -56,32 +63,41 @@ const Sidebar: React.FC = () => {
 	];
 
 	return (
-		<aside className="fixed inset-y-0 left-0 w-64 bg-white text-gray-700">
+		<aside className="fixed inset-y-0 left-0 w-96 bg-zinc-50 text-gray-700">
 			<div className="flex flex-col h-full">
 				<div className="flex items-center justify-center h-16">
-					<h1 className="text-3xl font-bold text-black">
+					<h1 className="text-2xl font-bold font-Syncopate text-black">
 						<Link href={"/"}>Chiqui Mendoza</Link>{" "}
 					</h1>
 				</div>
-				<nav className="flex-1 px-4 py-6">
-					<NavList>
+				<nav className="flex-1 px-4 py-6 text-2lx">
+					<NavList className="">
 						{navigationItems.map((item) => (
 							<NavListItem
 								key={item.name}
 								label={item.name}
 								hasSubmenu={!!item.children}
-								className="text-gray-700"
+								className="text-gray-700 "
 							>
 								{item.children ? (
-									item.children.map((subItem) => (
-										<NavListLink
-											key={subItem.name}
-											href={subItem.href}
-											submenu={true}
-										>
-											{subItem.name}
-										</NavListLink>
-									))
+									item.children.map((subItem) =>
+										subItem.external ? (
+											<NavListAnchor
+												key={subItem.name}
+												href={subItem.href}
+											>
+												{subItem.name}
+											</NavListAnchor>
+										) : (
+											<NavListLink
+												key={subItem.name}
+												href={subItem.href}
+												submenu={true}
+											>
+												{subItem.name}
+											</NavListLink>
+										)
+									)
 								) : (
 									<NavListLink href={item.href}>
 										{item.name}
@@ -92,7 +108,7 @@ const Sidebar: React.FC = () => {
 					</NavList>
 				</nav>
 				<div className="px-4 py-4">
-					{/* Optional footer or additional links */}
+					<h2>Rights reserved Chiqui Mendoza 2025</h2>
 				</div>
 			</div>
 		</aside>
